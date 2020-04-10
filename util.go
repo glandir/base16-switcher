@@ -29,6 +29,18 @@ func PullOrClone(name string, location string, targetDir string) {
 	}
 }
 
+func ReadYamlFile(path string) (map[string]string) {
+	result := make(map[string]string)
+
+	file, err := ioutil.ReadFile(path)
+	assert(err, "Error reading file", path)
+
+	err = yaml.Unmarshal(file, result)
+	assert(err, "Could not parse", path)
+
+	return result
+}
+
 func assert(err error, messages ...string) {
 	if err != nil {
 		fmt.Print(messages)
