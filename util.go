@@ -41,9 +41,9 @@ func ReadYamlFile(path string) (map[string]string) {
 	return result
 }
 
-func assert(err error, messages ...string) {
+func assert(err error, messages ...interface{}) {
 	if err != nil {
-		fmt.Print(messages)
+		fmt.Print(messages...)
 		if len(messages) != 0 {
 			fmt.Print(" : ")
 		}
