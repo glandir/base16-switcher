@@ -48,10 +48,8 @@ func (self *ApplyCmd) Run() error {
 
 	for _, application := range config.Applications {
 		for _, hook := range application.Hooks {
-			out, err := exec.Command("sh", "-c", hook).Output()
-			assert(err, "Could not execute hoook", hook)
-
-			fmt.Printf("%s", out)
+			err := exec.Command("sh", "-c", hook).Run()
+			assert(err, "Could not execute hoook ", hook)
 		}
 	}
 
@@ -104,13 +102,13 @@ func ConvertScheme(scheme map[string]string) map[string]string {
 
 func toRgb(hex string) string {
 	n, err := strconv.ParseInt(hex, 16, 32)
-	assert(err, "Could not convert hex value", hex, "to rgb component")
+	assert(err, "Could not convert hex value ", hex, " to rgb component")
 	return strconv.FormatInt(n, 10)
 }
 
 func toDec(hex string) string {
 	n, err := strconv.ParseInt(hex, 16, 32)
-	assert(err, "Could not convert hex value", hex, "to decimal rgb component")
+	assert(err, "Could not convert hex value ", hex, " to decimal rgb component")
 	f := float64(n) / 256.0
 	return strconv.FormatFloat(f, 'f', -1, 64)
 }
@@ -121,10 +119,10 @@ func ReadTemplate(appName string, template string, config *Config) string {
 
 	templatePath := config.xdgDirs.QueryCache(relativeTemplPath)
 	if len(templatePath) == 0 {
-		assert(fmt.Errorf("Could not find template %s in cache", relativeTemplPath))
+		assert(fmt.Errorf("Could not find template %s in cache ", relativeTemplPath))
 	}
 	templateBytes, err := ioutil.ReadFile(templatePath)
-	assert(err, "Could not read template file", templatePath)
+	assert(err, "Could not read template file ", templatePath)
 	templateContent := string(templateBytes)
 	return templateContent
 }
@@ -132,12 +130,12 @@ func ReadTemplate(appName string, template string, config *Config) string {
 func WriteFile(path string, content string) {
 	dirpath := filepath.Dir(path)
 	err := os.MkdirAll(dirpath, os.ModeDir)
-	assert(err, "Could not create directory", dirpath)
+	assert(err, "Could not create directory ", dirpath)
 
 	outfile, err := os.Create(path)
-	assert(err, "Could not create file", path)
+	assert(err, "Could not create file ", path)
 	defer outfile.Close()
 
 	_, err = outfile.WriteString(content)
-	assert(err, "Could not write to file", content)
+	assert(err, "Could not write to file ", content)
 }

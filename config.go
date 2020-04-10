@@ -27,15 +27,15 @@ func LoadConfig() Config {
 
 	configDir := config.xdgDirs.ConfigHome()
 	err := os.MkdirAll(configDir, os.ModePerm)
-	assert(err, "Could not create directory", configDir)
+	assert(err, "Could not create directory ", configDir)
 
 	cacheDir := config.xdgDirs.CacheHome()
 	err = os.MkdirAll(cacheDir, os.ModePerm)
-	assert(err, "Could not create directory", configDir)
+	assert(err, "Could not create directory ", configDir)
 
 	configPath := config.xdgDirs.QueryConfig("config.yaml")
 	file, err := ioutil.ReadFile(configPath)
-	assert(err, "Could not read configuration file", configPath)
+	assert(err, "Could not read configuration file ", configPath)
 
 	err = yaml.Unmarshal(file, &config)
 	assert(err, "Could not parse ", configPath)

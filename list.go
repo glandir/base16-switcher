@@ -28,7 +28,7 @@ func AvailableSchemes(config *Config) map[string]string {
 	configDir := config.xdgDirs.CacheHome()
 	glob := configDir + "/schemes/*/*.yaml"
 	availableSchemes, err := filepath.Glob(glob)
-	assert(err, "Failed to resolve glob", glob)
+	assert(err, "Failed to resolve glob ", glob)
 
 	result := make(map[string]string)
 	for _, e := range availableSchemes {

@@ -19,7 +19,7 @@ func PullOrClone(name string, location string, targetDir string) {
 			URL:               location,
 			RecurseSubmodules: git.DefaultSubmoduleRecursionDepth,
 		})
-		assert(err, "Error pulling from", location)
+		assert(err, "Error pulling from ", location)
 	} else {
 		fmt.Println("Pulling", name, "from", location)
 
@@ -33,10 +33,10 @@ func ReadYamlFile(path string) (map[string]string) {
 	result := make(map[string]string)
 
 	file, err := ioutil.ReadFile(path)
-	assert(err, "Error reading file", path)
+	assert(err, "Error reading file ", path)
 
 	err = yaml.Unmarshal(file, result)
-	assert(err, "Could not parse", path)
+	assert(err, "Could not parse ", path)
 
 	return result
 }

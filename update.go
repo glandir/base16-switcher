@@ -25,7 +25,7 @@ func UpdateTemplates(config *Config) {
 	templatesDir := filepath.Join(config.xdgDirs.CacheHome(), "templates")
 
 	err := os.MkdirAll(templatesDir, os.ModePerm)
-	assert(err, "Could not create directory", templatesDir)
+	assert(err, "Could not create directory ", templatesDir)
 
 	fmt.Print("Pulling templates\n-----------------\n")
 
@@ -38,18 +38,18 @@ func UpdateTemplates(config *Config) {
 func DownloadSchemeLists(config *Config) {
 	schemeListPath := filepath.Join(config.xdgDirs.CacheHome(), "schemes-list.yaml")
 	out, err := os.Create(schemeListPath)
-	assert(err, "Error creating file", schemeListPath)
+	assert(err, "Error creating file ", schemeListPath)
 	defer out.Close()
 
 	for _, url := range config.SchemeSources {
 		resp, err := http.Get(url)
-		assert(err, "Could not downlad", url)
+		assert(err, "Could not downlad ", url)
 		defer resp.Body.Close()
 
 		// ATM, just ignore unavailable ones.
 		if resp.StatusCode == http.StatusOK {
 			_, err = io.Copy(out, resp.Body)
-			assert(err, "Error writing to file", schemeListPath)
+			assert(err, "Error writing to file ", schemeListPath)
 		}
 	}
 }
@@ -60,7 +60,7 @@ func PullSchemes(config *Config) {
 
 	schemesDir := filepath.Join(config.xdgDirs.CacheHome(), "schemes")
 	err := os.MkdirAll(schemesDir, os.ModePerm)
-	assert(err, "Could not create directory", schemesDir)
+	assert(err, "Could not create directory ", schemesDir)
 
 	for name, location := range schemes {
 		schemeDir := filepath.Join(schemesDir, name)
