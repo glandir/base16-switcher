@@ -6,6 +6,7 @@ import (
 
 var Cli struct {
 	Update UpdateCmd `cmd:"" help:"Update templates and schemes."`
+	List ListCmd `cmd:"" help:"List available color schemes."`
 }
 
 func main() {
