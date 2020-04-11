@@ -30,7 +30,7 @@ func (self *ApplyCmd) Run() error {
 		assert(fmt.Errorf("Scheme %s does not exist.", self.Name))
 	}
 
-	fmt.Printf("Applying scheme %s\n\n", self.Name)
+	fmt.Printf("Applying scheme %s\n----\n\n", self.Name)
 
 	scheme := ReadYamlFile(schemePath)
 	scheme = ConvertScheme(scheme)
@@ -42,12 +42,16 @@ func (self *ApplyCmd) Run() error {
 			templateContent := ReadTemplate(appName, template, &config)
 			templateContent = Apply(scheme, templateContent)
 
+			fmt.Println("Generating ", destination)
 			WriteFile(destination, templateContent)
 		}
 	}
 
+	fmt.Println();
+
 	for _, application := range config.Applications {
 		for _, hook := range application.Hooks {
+			fmt.Println("$ sh -c", hook)
 			err := exec.Command("sh", "-c", hook).Run()
 			if err != nil {
 				fmt.Println("Hook execution failed:", err.Error())
