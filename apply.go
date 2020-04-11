@@ -49,7 +49,9 @@ func (self *ApplyCmd) Run() error {
 	for _, application := range config.Applications {
 		for _, hook := range application.Hooks {
 			err := exec.Command("sh", "-c", hook).Run()
-			assert(err, "Could not execute hoook ", hook)
+			if err != nil {
+				fmt.Println("Hook execution failed:", err.Error())
+			}
 		}
 	}
 
