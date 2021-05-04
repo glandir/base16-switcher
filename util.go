@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/go-git/go-git"
+	"github.com/go-git/go-git/v5"
 	"gopkg.in/yaml.v2"
 )
 
