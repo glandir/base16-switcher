@@ -1,4 +1,4 @@
-module base16-switcher
+module github.com/glandir/base16-switcher
 
 go 1.16
 
